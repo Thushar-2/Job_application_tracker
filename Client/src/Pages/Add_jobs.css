@@ -1,0 +1,71 @@
+
+.add-job-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; 
+  width: 100%;
+  background: linear-gradient(135deg, #4B0082, #8A2BE2); 
+}
+
+
+.add-job-card {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 40px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+  width: 350px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+
+.add-job-card:hover {
+  transform: scale(1.02);
+}
+
+
+.add-job-card input {
+  padding: 14px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  outline: none;
+  transition: border 0.3s;
+}
+
+
+.add-job-card input:focus {
+  border: 2px solid #8A2BE2;
+}
+
+
+.add-job-btn {
+  background: #8A2BE2;
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s, transform 0.2s;
+  width: 100%;
+}
+
+
+.add-job-btn:hover {
+  background: #6A1B9A;
+  transform: scale(1.05);
+}
+
+
+@media (max-width: 400px) {
+  .add-job-card {
+    width: 90%;
+    padding: 30px;
+  }
+}
