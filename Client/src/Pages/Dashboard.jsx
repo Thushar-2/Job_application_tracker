@@ -56,7 +56,7 @@ const Dashboard = () => {
           <table className="jobs-table">
             <thead>
               <tr>
-                <th>#</th>
+                <th>ID</th>
                 <th>Company</th>
                 <th>Position</th>
                 <th>Status</th>

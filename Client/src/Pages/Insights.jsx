@@ -1,16 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../Components/Navbar";
-import { Bar } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from "recharts";
+import axios from "axios";
 import "./Insights.css";
 
-const data = [
-  { name: "Applied", count: 25 },
-  { name: "Interview Scheduled", count: 5 },
-  { name: "Rejected", count: 10 },
-  { name: "Pending", count: 8 }
-];
-
 const Insights = () => {
+  const [data, setData] = useState([
+    { name: "Applied", count: 0 },
+    { name: "Interview Scheduled", count: 0 },
+    { name: "Rejected", count: 0 },
+    { name: "Pending", count: 0 }
+  ]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5091/api/jobs")
+      .then((res) => {
+        const jobCounts = {
+          Applied: 0,
+          "Interview Scheduled": 0,
+          Rejected: 0,
+          Pending: 0,
+        };
+        
+        res.data.forEach((job) => {
+          if (jobCounts[job.status] !== undefined) {
+            jobCounts[job.status]++;
+          }
+        });
+        
+        setData([
+          { name: "Applied", count: jobCounts["Applied"] },
+          { name: "Interview Scheduled", count: jobCounts["Interview Scheduled"] },
+          { name: "Rejected", count: jobCounts["Rejected"] },
+          { name: "Pending", count: jobCounts["Pending"] }
+        ]);
+      })
+      .catch((err) => console.error("Error fetching job data:", err));
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -20,22 +48,12 @@ const Insights = () => {
           Gain valuable insights into your job application process and track your progress.
         </p>
         <section className="insights-content">
-          <div className="insight-card">
-            <h2>Total Applications</h2>
-            <p>25</p>
-          </div>
-          <div className="insight-card">
-            <h2>Interviews Scheduled</h2>
-            <p>5</p>
-          </div>
-          <div className="insight-card">
-            <h2>Offers Received</h2>
-            <p>2</p>
-          </div>
-          <div className="insight-card">
-            <h2>Rejections</h2>
-            <p>10</p>
-          </div>
+          {data.map((item) => (
+            <div className="insight-card" key={item.name}>
+              <h2>{item.name}</h2>
+              <p>{item.count}</p>
+            </div>
+          ))}
         </section>
         <section className="insights-graph">
           <h2>Application Status Overview</h2>

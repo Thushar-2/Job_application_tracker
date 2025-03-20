@@ -10,7 +10,6 @@ public class ApplicationDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
     }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer("Server=LAPTOP-2MKQJ0KS\\SQLEXPRESS;Database=Jobtracker;Trusted_Connection=True;Encrypt=False");
